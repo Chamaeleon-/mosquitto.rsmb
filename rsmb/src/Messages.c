@@ -3,11 +3,11 @@
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v1.0 which accompany this distribution. 
+ * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
- * The Eclipse Public License is available at 
+ * The Eclipse Public License is available at
  *    http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at 
+ * and the Eclipse Distribution License is available at
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
@@ -97,7 +97,7 @@ static char* protocol_message_list[] =
     "%d %s %s -> MQTT-S REGACK msgid: %d topicid: %d returncode: %d (%d)", /* 52 */
     "%d %s %s <- MQTT-S REGACK msgid: %d topicid: %d returncode: %d", /* 53 */
 	"%d %s %s -> MQTT-S PUBLISH msgid: %d qos: %d retained: %d (%d)", /* 54 */
-	"%d %s %s <- MQTT-S PUBLISH msgid: %d qos: %d retained: %d", /* 55 */
+	"%d %s %s <- MQTT-S PUBLISH msgid: %d qos: %d retained: %d payload: %s" , /* 55 */
 	"%d %s %s -> MQTT-S PUBACK msgid: %d (%d)", /* 56 */
 	"%d %s %s <- MQTT-S PUBACK msgid: %d", /* 57 */
 	"%d %s %s -> MQTT-S PUBCOMP msgid: %d (%d)", /* 58 */
@@ -187,7 +187,7 @@ static char* trace_message_list[] =
 
 
 /**
- * Find the location of this program 
+ * Find the location of this program
  * @param buf a character buffer to hold the directory name
  * @param bufsize the size of buf
  * @return the success return code
@@ -198,9 +198,9 @@ int Messages_findMyLocation(char* buf, int bufsize)
 #if defined(WIN32)
 	wchar_t wbuf[256];
 #endif
- 	
+
 	FUNC_ENTRY;
-#if defined(WIN32) 	
+#if defined(WIN32)
 	rc = GetModuleFileName(NULL, wbuf, bufsize);
 	wcstombs(buf, wbuf, bufsize);
 #else /* Linux */
@@ -249,7 +249,7 @@ int Messages_initialize(BrokerStates* bstate)
 			if (Messages_findMyLocation(fullfn, sizeof(fullfn)) == 0)
 			{
 				int dirlength = strlen(fullfn);
-				
+
 				snprintf(&fullfn[dirlength], sizeof(fullfn) - dirlength, "%c%s", sep, fn);
 				rfile = fopen(fullfn, "r");
 				if (rfile == NULL)
